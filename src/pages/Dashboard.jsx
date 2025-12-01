@@ -157,7 +157,7 @@ const Dashboard = () => {
               alt="Logo"
             />
             <div className="hidden md:block h-6 w-px bg-gray-300"></div>
-            <h1 className="hidden md:block text-base lg:text-lg font-semibold text-gray-800">
+            <h1 className="hidden md:block text-lg lg:text-xl xl:text-2xl font-bold text-gray-800">
               Recruiter Dashboard
             </h1>
           </div>
@@ -177,7 +177,7 @@ const Dashboard = () => {
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                   />
                 </svg>
-                <p className="text-xs sm:text-sm font-medium text-blue-700">
+                <p className="text-sm sm:text-base font-semibold text-blue-700">
                   Welcome,{" "}
                   <span className="hidden lg:inline">{companyData.name}</span>
                 </p>
@@ -208,10 +208,10 @@ const Dashboard = () => {
                 {isDropdownOpen && (
                   <div className="absolute top-full right-0 z-20 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden animate-fade-in">
                     <div className="p-3 border-b border-gray-200">
-                      <p className="text-sm font-semibold text-gray-900">
+                      <p className="text-base font-bold text-gray-900">
                         {companyData.name}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-sm text-gray-500">
                         {companyData.email}
                       </p>
                     </div>
@@ -221,7 +221,7 @@ const Dashboard = () => {
                           setIsDropdownOpen(false);
                           logout();
                         }}
-                        className="py-2.5 px-4 cursor-pointer hover:bg-red-50 text-red-600 text-sm font-medium transition-colors flex items-center gap-2"
+                        className="py-2.5 px-4 cursor-pointer hover:bg-red-50 text-red-600 text-base font-semibold transition-colors flex items-center gap-2"
                       >
                         <svg
                           className="w-4 h-4"
@@ -282,7 +282,7 @@ const Dashboard = () => {
                 src={assets.add_icon}
                 alt="Add Job"
               />
-              <p>Add Job</p>
+              <p className="text-base sm:text-lg font-medium">Add Job</p>
             </NavLink>
 
             <NavLink
@@ -290,7 +290,7 @@ const Dashboard = () => {
               className={({ isActive }) =>
                 `flex items-center p-3 sm:px-6 gap-3 w-full transition-all duration-200 ${
                   isActive
-                    ? "bg-blue-50 border-r-4 border-blue-600 text-blue-700 font-medium shadow-sm"
+                    ? "bg-blue-50 border-r-4 border-blue-600 text-blue-700 font-semibold shadow-sm"
                     : "hover:bg-gray-100 text-gray-700"
                 }`
               }
@@ -301,7 +301,7 @@ const Dashboard = () => {
                 src={assets.home_icon}
                 alt="Manage Jobs"
               />
-              <p>Manage Jobs</p>
+              <p className="text-base sm:text-lg font-medium">Manage Jobs</p>
             </NavLink>
 
             <NavLink
@@ -309,7 +309,7 @@ const Dashboard = () => {
               className={({ isActive }) =>
                 `flex items-center p-3 sm:px-6 gap-3 w-full transition-all duration-200 ${
                   isActive
-                    ? "bg-blue-50 border-r-4 border-blue-600 text-blue-700 font-medium shadow-sm"
+                    ? "bg-blue-50 border-r-4 border-blue-600 text-blue-700 font-semibold shadow-sm"
                     : "hover:bg-gray-100 text-gray-700"
                 }`
               }
@@ -320,7 +320,9 @@ const Dashboard = () => {
                 src={assets.person_tick_icon}
                 alt="View Applications"
               />
-              <p>View Applications</p>
+              <p className="text-base sm:text-lg font-medium">
+                View Applications
+              </p>
             </NavLink>
           </ul>
         </div>

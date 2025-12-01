@@ -15,7 +15,31 @@ export const AppContextProvider = ({ children }) => {
   // الوظائف
   const [jobs, setJobs] = useState(() => {
     const savedJobs = localStorage.getItem("jobs");
-    return savedJobs ? JSON.parse(savedJobs) : [];
+    if (savedJobs) {
+      try {
+        const parsed = JSON.parse(savedJobs);
+        // Clean up blob URLs from saved jobs
+        const cleanedJobs = parsed.map((job) => {
+          if (job.companyImage && job.companyImage.startsWith("blob:")) {
+            return { ...job, companyImage: null };
+          }
+          return job;
+        });
+        // Save cleaned jobs back if any were modified
+        if (
+          cleanedJobs.some(
+            (job, index) => job.companyImage !== parsed[index]?.companyImage
+          )
+        ) {
+          localStorage.setItem("jobs", JSON.stringify(cleanedJobs));
+        }
+        return cleanedJobs;
+      } catch (error) {
+        console.error("Error parsing jobs:", error);
+        return [];
+      }
+    }
+    return [];
   });
 
   // بيانات الشركة
@@ -66,7 +90,14 @@ export const AppContextProvider = ({ children }) => {
 
   // حفظ البيانات في localStorage عند أي تغيير
   useEffect(() => {
-    localStorage.setItem("jobs", JSON.stringify(jobs));
+    // Clean blob URLs before saving
+    const cleanedJobs = jobs.map((job) => {
+      if (job.companyImage && job.companyImage.startsWith("blob:")) {
+        return { ...job, companyImage: null };
+      }
+      return job;
+    });
+    localStorage.setItem("jobs", JSON.stringify(cleanedJobs));
   }, [jobs]);
 
   useEffect(() => {

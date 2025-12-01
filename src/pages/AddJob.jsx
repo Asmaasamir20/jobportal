@@ -44,6 +44,12 @@ const AddJob = () => {
     // Retrieve stored jobs from localStorage
     const storedJobs = JSON.parse(localStorage.getItem("jobs") || "[]");
 
+    // Clean company image - remove blob URLs as they become invalid
+    let cleanCompanyImage = companyData.image;
+    if (cleanCompanyImage && cleanCompanyImage.startsWith("blob:")) {
+      cleanCompanyImage = null;
+    }
+
     const newJob = {
       id: Date.now(),
       title,
@@ -56,7 +62,7 @@ const AddJob = () => {
       applicants: [],
       companyEmail: companyData.email,
       companyName: companyData.name,
-      companyImage: companyData.image,
+      companyImage: cleanCompanyImage,
       date: new Date().toISOString(),
     };
 

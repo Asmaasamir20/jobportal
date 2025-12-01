@@ -6,7 +6,7 @@ const AppDownload = () => {
     <div className='px-4 sm:px-5 my-12 sm:my-20'>
         <div className='relative bg-gradient-to-r from-violet-50 to-purple-50 p-6 sm:p-12 lg:p-24 xl:p-32 rounded-lg overflow-hidden'> 
             <div className='relative z-10'>
-            <h1 className='text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-6 sm:mb-8 max-w-md' >
+            <h1 className='text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 max-w-md' >
               Download Mobile App For Better Experience
             </h1>
                 <div className='flex flex-col sm:flex-row gap-3 sm:gap-4'>

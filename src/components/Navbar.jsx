@@ -27,12 +27,12 @@ const Navbar = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               to={"/applications"}
-              className="text-xs sm:text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap"
+              className="text-sm sm:text-base text-gray-700 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap font-medium"
             >
               Applied Jobs
             </Link>
             <p className="text-gray-300 hidden sm:block">|</p>
-            <p className="hidden sm:block text-sm text-gray-700">
+            <p className="hidden sm:block text-sm sm:text-base text-gray-700 font-medium">
               Hi, {user.firstName + " " + user.lastName}
             </p>
             <div className="scale-90 sm:scale-100">
@@ -42,21 +42,21 @@ const Navbar = () => {
         ) : (
           <div className="flex gap-2 sm:gap-4 items-center">
             <button
-              className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap"
+              className="text-sm sm:text-base text-gray-600 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap font-medium"
               onClick={(e) => setShowRecruiterLogin(true)}
             >
               <span className="hidden sm:inline">Recruiter Login</span>
               <span className="sm:hidden">Recruiter</span>
             </button>
             <button
-              className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+              className="text-sm sm:text-base text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium"
               onClick={() => setShowAdminLogin(true)}
             >
               Admin
             </button>
             <button
               onClick={(e) => openSignIn()}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 lg:px-9 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-7 lg:px-10 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-semibold transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap"
             >
               Login
             </button>
