@@ -114,9 +114,9 @@ const JobCard = ({ job }) => {
       {/* Subtle gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-indigo-50/0 group-hover:from-blue-50/30 group-hover:to-indigo-50/20 transition-all duration-300 rounded-xl pointer-events-none"></div>
       {/* Company Logo and Info - Fixed height */}
-      <div className="relative z-10 flex justify-between items-start mb-3 sm:mb-4 h-[3.5rem] sm:h-[3.75rem]">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden border border-gray-200 flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow duration-300">
+      <div className="relative z-10 flex justify-between items-start mb-3 sm:mb-4 lg:mb-3 xl:mb-3 h-[3.5rem] sm:h-[3.75rem] lg:h-[3rem] xl:h-[3rem]">
+        <div className="flex items-center gap-2 sm:gap-3 lg:gap-2 xl:gap-2">
+          <div className="relative h-10 w-10 sm:h-12 sm:w-12 lg:h-10 lg:w-10 xl:h-10 xl:w-10 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden border border-gray-200 flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow duration-300">
             {job.companyImage && !job.companyImage.startsWith("blob:") ? (
               <img
                 className="h-full w-full object-contain p-2"
@@ -135,56 +135,56 @@ const JobCard = ({ job }) => {
             )}
           </div>
           <div>
-            <p className="font-semibold text-xs sm:text-sm text-gray-700">
+            <p className="font-semibold text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-xs text-gray-700">
               {job.companyName || "Company"}
             </p>
             {job.date && (
-              <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5">
+              <p className="text-[10px] sm:text-xs lg:text-[10px] xl:text-[10px] 2xl:text-[10px] text-gray-500 mt-0.5">
                 {formatDate(job.date)}
               </p>
             )}
           </div>
         </div>
         {job.category && (
-          <span className="text-[10px] sm:text-xs bg-gradient-to-r from-purple-50 to-indigo-50 text-purple-700 px-2 py-1 rounded-full font-semibold flex-shrink-0 border border-purple-200/50 shadow-sm">
+          <span className="text-[10px] sm:text-xs lg:text-[10px] xl:text-[10px] 2xl:text-[10px] bg-gradient-to-r from-purple-50 to-indigo-50 text-purple-700 px-2 py-1 lg:px-1.5 lg:py-0.5 xl:px-1.5 xl:py-0.5 2xl:px-1.5 2xl:py-0.5 rounded-full font-semibold flex-shrink-0 border border-purple-200/50 shadow-sm">
             {job.category}
           </span>
         )}
       </div>
 
       {/* Job Title - Fixed height */}
-      <h4 className="relative z-10 font-bold text-base sm:text-lg lg:text-xl text-gray-900  line-clamp-2 group-hover:text-blue-600 transition-colors duration-300 h-[3rem] sm:h-[3.5rem]">
+      <h4 className="relative z-10 font-bold text-base sm:text-lg lg:text-base xl:text-base 2xl:text-base text-gray-900  line-clamp-2 group-hover:text-blue-600 transition-colors duration-300 h-[3rem] sm:h-[3.5rem] lg:h-[2.75rem] xl:h-[2.75rem] 2xl:h-[2.75rem]">
         {job.title}
       </h4>
 
       {/* Location and Level Tags - Allow wrapping without overflow */}
-      <div className="relative z-10 flex items-center gap-1.5 sm:gap-2 flex-wrap mb-2 sm:mb-3 min-h-[2.5rem] sm:min-h-[2.75rem] py-1.5">
+      <div className="relative z-10 flex items-center gap-1.5 sm:gap-2 lg:gap-1.5 xl:gap-1.5 2xl:gap-1.5 flex-wrap mb-2 sm:mb-3 lg:mb-2 xl:mb-2 2xl:mb-2 min-h-[2.5rem] sm:min-h-[2.75rem] lg:min-h-[2.25rem] xl:min-h-[2.25rem] 2xl:min-h-[2.25rem] py-1.5 lg:py-1 xl:py-1 2xl:py-1">
         {job.location && (
-          <span className="inline-flex items-center gap-1.5 bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 px-2.5 py-1 rounded-full text-sm  text-blue-700 shadow-sm hover:shadow-md transition-all duration-200 hover:bg-blue-100">
+          <span className="inline-flex items-center gap-1.5 bg-blue-50/80 backdrop-blur-sm border border-blue-200/60 px-2.5 py-1 lg:px-2 lg:py-0.5 xl:px-2 xl:py-0.5 2xl:px-2 2xl:py-0.5 rounded-full text-sm lg:text-xs xl:text-xs 2xl:text-xs text-blue-700 shadow-sm hover:shadow-md transition-all duration-200 hover:bg-blue-100">
             <img
               src={assets.location_icon}
               alt="Location"
-              className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+              className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3 lg:w-3 xl:h-3 xl:w-3 2xl:h-3 2xl:w-3"
             />
             {job.location}
           </span>
         )}
         {job.level && (
-          <span className="inline-flex items-center gap-1.5 bg-red-50/80 backdrop-blur-sm border border-red-200/60 px-2.5 py-1 rounded-full text-sm  text-red-700 shadow-sm hover:shadow-md transition-all duration-200 hover:bg-red-100">
+          <span className="inline-flex items-center gap-1.5 bg-red-50/80 backdrop-blur-sm border border-red-200/60 px-2.5 py-1 lg:px-2 lg:py-0.5 xl:px-2 xl:py-0.5 2xl:px-2 2xl:py-0.5 rounded-full text-sm lg:text-xs xl:text-xs 2xl:text-xs text-red-700 shadow-sm hover:shadow-md transition-all duration-200 hover:bg-red-100">
             <img
               src={assets.suitcase_icon}
               alt="Level"
-              className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+              className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3 lg:w-3 xl:h-3 xl:w-3 2xl:h-3 2xl:w-3"
             />
             {job.level}
           </span>
         )}
         {job.salary && (
-          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200/60 px-2.5 py-1 rounded-full text-sm text-green-700 shadow-sm hover:shadow-md transition-all duration-200 hover:from-green-100 hover:to-emerald-100">
+          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200/60 px-2.5 py-1 lg:px-2 lg:py-0.5 xl:px-2 xl:py-0.5 2xl:px-2 2xl:py-0.5 rounded-full text-sm lg:text-xs xl:text-xs 2xl:text-xs text-green-700 shadow-sm hover:shadow-md transition-all duration-200 hover:from-green-100 hover:to-emerald-100">
             <img
               src={assets.money_icon}
               alt="Salary"
-              className="h-3 w-3 sm:h-3.5 sm:w-3.5"
+              className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3 lg:w-3 xl:h-3 xl:w-3 2xl:h-3 2xl:w-3"
             />
             ${job.salary.toLocaleString()}
           </span>
@@ -192,8 +192,8 @@ const JobCard = ({ job }) => {
       </div>
 
       {/* Job Description Preview - Fixed height and position - This ensures all descriptions start at the same level */}
-      <div className="relative z-10 flex-1 my-3 sm:my-4">
-        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-3 group-hover:text-gray-700 transition-colors duration-200">
+      <div className="relative z-10 flex-1 my-3 sm:my-4 lg:my-2.5 xl:my-2.5 2xl:my-2.5">
+        <p className="text-gray-600 text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-xs leading-relaxed line-clamp-3 group-hover:text-gray-700 transition-colors duration-200">
           {job.description
             ? stripHtml(job.description).slice(0, 120) + "..."
             : "No description available"}
@@ -201,19 +201,19 @@ const JobCard = ({ job }) => {
       </div>
 
       {/* Action Buttons - Always at bottom - Enhanced Professional Design */}
-      <div className="relative z-10 mt-auto pt-4 border-t border-gray-200/60 group-hover:border-gray-300 transition-colors duration-300 flex gap-2 sm:gap-3">
+      <div className="relative z-10 mt-auto pt-4 lg:pt-3 xl:pt-3 2xl:pt-3 border-t border-gray-200/60 group-hover:border-gray-300 transition-colors duration-300 flex gap-2 sm:gap-3 lg:gap-2 xl:gap-2 2xl:gap-2">
         <button
           onClick={handleApply}
-          className={`group flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-blue-500/30 relative overflow-hidden ${
+          className={`group flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-3 sm:px-4 lg:px-2.5 lg:py-1.5 xl:px-2.5 xl:py-1.5 2xl:px-2.5 2xl:py-1.5 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-xs transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-blue-500/30 relative overflow-hidden ${
             isHovered
               ? "transform scale-[1.02] shadow-lg shadow-blue-500/40"
               : "hover:scale-[1.02]"
           }`}
           type="button"
         >
-          <span className="relative z-10 flex items-center justify-center gap-1.5">
+          <span className="relative z-10 flex items-center justify-center gap-1.5 lg:gap-1 xl:gap-1 2xl:gap-1">
             <svg
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-0.5"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-3 lg:h-3 xl:w-3 xl:h-3 2xl:w-3 2xl:h-3 transition-transform duration-300 group-hover:translate-x-0.5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -232,17 +232,17 @@ const JobCard = ({ job }) => {
 
         <button
           onClick={handleLearnMore}
-          className={`group px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm border-2 transition-all duration-300 relative overflow-hidden ${
+          className={`group px-3 sm:px-4 lg:px-2.5 lg:py-1.5 xl:px-2.5 xl:py-1.5 2xl:px-2.5 2xl:py-1.5 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-xs border-2 transition-all duration-300 relative overflow-hidden ${
             isHovered
               ? "border-blue-600 text-blue-600 bg-blue-50/80 shadow-md transform scale-[1.02]"
               : "border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50/50 hover:shadow-sm"
           }`}
           type="button"
         >
-          <span className="relative z-10 flex items-center justify-center gap-1.5">
+          <span className="relative z-10 flex items-center justify-center gap-1.5 lg:gap-1 xl:gap-1 2xl:gap-1">
             Learn more
             <svg
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-3 lg:h-3 xl:w-3 xl:h-3 2xl:w-3 2xl:h-3 transition-transform duration-300 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

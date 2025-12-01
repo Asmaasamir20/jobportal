@@ -195,13 +195,38 @@ const JobListing = () => {
   } = useContext(AppContext);
 
   const [showFilter, setShowFilter] = useState(false);
-  // Load current page from localStorage on mount, default to 1
+
+  // Helper function to get filter state as string for comparison
+  const getFilterStateKey = (categories, locations, search) => {
+    return JSON.stringify({
+      categories: [...categories].sort(),
+      locations: [...locations].sort(),
+      searchTitle: search.title || "",
+      searchLocation: search.location || "",
+    });
+  };
+
+  // Load saved filters and page from localStorage on mount
   const [CurrentPage, setCurrentPage] = useState(() => {
     const savedPage = localStorage.getItem("jobListingCurrentPage");
     return savedPage ? parseInt(savedPage, 10) : 1;
   });
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState([]);
+
+  const [selectedCategories, setSelectedCategories] = useState(() => {
+    const saved = localStorage.getItem("jobListingSelectedCategories");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [selectedLocation, setSelectedLocation] = useState(() => {
+    const saved = localStorage.getItem("jobListingSelectedLocation");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [lastFilterState, setLastFilterState] = useState(() => {
+    const saved = localStorage.getItem("jobListingLastFilterState");
+    return saved || "";
+  });
+
   const [filteredJobs, setFilteredJobs] = useState([]);
 
   /**
@@ -211,6 +236,23 @@ const JobListing = () => {
   useEffect(() => {
     localStorage.setItem("jobListingCurrentPage", CurrentPage.toString());
   }, [CurrentPage]);
+
+  /**
+   * Save filters to localStorage whenever they change
+   */
+  useEffect(() => {
+    localStorage.setItem(
+      "jobListingSelectedCategories",
+      JSON.stringify(selectedCategories)
+    );
+  }, [selectedCategories]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "jobListingSelectedLocation",
+      JSON.stringify(selectedLocation)
+    );
+  }, [selectedLocation]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prev) =>
@@ -234,6 +276,9 @@ const JobListing = () => {
     setSelectedLocation([]);
     setSearchFilter({ title: "", location: "" });
     setIsSearched(false);
+    // Clear saved filter state when resetting
+    localStorage.removeItem("jobListingLastFilterState");
+    setLastFilterState("");
   };
 
   useEffect(() => {
@@ -276,9 +321,36 @@ const JobListing = () => {
       );
 
     setFilteredJobs(newFilteredJobs);
-    // Reset to page 1 when filters change
-    setCurrentPage(1);
-  }, [jobs, selectedCategories, selectedLocation, searchFilter]);
+
+    // Check if filters have changed
+    const currentFilterState = getFilterStateKey(
+      selectedCategories,
+      selectedLocation,
+      searchFilter
+    );
+
+    // Only reset to page 1 if filters actually changed (not on initial load)
+    if (lastFilterState && currentFilterState !== lastFilterState) {
+      // If filters changed, reset to page 1
+      setCurrentPage(1);
+      setLastFilterState(currentFilterState);
+      localStorage.setItem("jobListingLastFilterState", currentFilterState);
+    } else if (!lastFilterState) {
+      // On initial load, save the current filter state without resetting page
+      setLastFilterState(currentFilterState);
+      localStorage.setItem("jobListingLastFilterState", currentFilterState);
+    } else {
+      // If filters are the same, keep the current page
+      setLastFilterState(currentFilterState);
+      localStorage.setItem("jobListingLastFilterState", currentFilterState);
+    }
+  }, [
+    jobs,
+    selectedCategories,
+    selectedLocation,
+    searchFilter,
+    lastFilterState,
+  ]);
 
   /**
    * Validate and adjust current page when filtered jobs change
@@ -295,9 +367,9 @@ const JobListing = () => {
   }, [filteredJobs.length, CurrentPage]);
 
   return (
-    <div className="px-4 sm:px-5 flex flex-col lg:flex-row max-lg:space-y-6 sm:max-lg:space-y-8 py-6 sm:py-8 gap-4 lg:gap-5 overflow-hidden max-w-full">
+    <div className="px-4 sm:px-5 flex flex-col lg:flex-row max-lg:space-y-6 sm:max-lg:space-y-8 py-6 sm:py-8 gap-4 lg:gap-5  max-w-full">
       {/* Sidebar - Filters - Professional Responsive Design with Sticky */}
-      <div className="w-full lg:w-56 xl:w-64 bg-white px-4 sm:px-5 lg:px-4 xl:px-5 rounded-xl shadow-md border border-gray-200 flex-shrink-0 py-6 sm:py-7 lg:py-6 xl:py-8 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+      <div className="w-full lg:w-56 xl:w-64 bg-white px-4 sm:px-5 lg:px-4 xl:px-5 rounded-xl shadow-md border border-gray-200 flex-shrink-0 py-6 sm:py-7 lg:py-6 xl:py-8 lg:sticky lg:top-8 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto sidebar-scroll">
         {/* Active Filters Section - Professional Design */}
         {(isSearched && (searchFilter.title || searchFilter.location)) ||
         selectedCategories.length > 0 ||

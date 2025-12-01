@@ -118,7 +118,7 @@ const Footer = () => {
                     '
                   >
                     <svg 
-                      className='w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300 text-blue-400' 
+                      className='w-4 h-4 opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300 text-blue-400' 
                       fill='none' 
                       stroke='currentColor' 
                       viewBox='0 0 24 24'
