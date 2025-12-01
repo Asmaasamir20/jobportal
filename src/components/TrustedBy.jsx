@@ -1,8 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, FreeMode } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/free-mode";
 import { assets } from "../assets/assets";
+import { useRef, useEffect } from "react";
 
 /**
  * TrustedBy Component
@@ -23,6 +23,26 @@ const TrustedBy = () => {
 
   // Duplicate companies multiple times to ensure seamless continuous scrolling
   const duplicatedCompanies = [...companies, ...companies, ...companies];
+  const swiperRef = useRef(null);
+
+  // Ensure autoplay starts after component mount and on reload
+  useEffect(() => {
+    const startAutoplay = () => {
+      if (swiperRef.current?.swiper) {
+        const swiper = swiperRef.current.swiper;
+        // Stop and restart autoplay to ensure it works after reload
+        swiper.autoplay.stop();
+        setTimeout(() => {
+          swiper.autoplay.start();
+        }, 100);
+      }
+    };
+
+    // Start autoplay after a short delay to ensure Swiper is fully initialized
+    const timer = setTimeout(startAutoplay, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="border border-gray-200 shadow-md mx-0 sm:mx-2 mt-4 sm:mt-5 p-4 sm:p-6 rounded-lg bg-white overflow-hidden max-w-full relative z-10">
@@ -30,20 +50,32 @@ const TrustedBy = () => {
         {/* Professional Swiper Slider Container */}
         <div className="w-full sm:w-auto">
           <Swiper
-            modules={[Autoplay, FreeMode]}
+            ref={swiperRef}
+            modules={[Autoplay]}
             spaceBetween={50}
             slidesPerView="auto"
-            freeMode={true}
             autoplay={{
-              delay: 1,
+              delay: 10,
               disableOnInteraction: false,
               pauseOnMouseEnter: false,
               reverseDirection: true,
             }}
             loop={true}
             loopAdditionalSlides={companies.length}
-            speed={5000}
+            speed={20000}
             allowTouchMove={false}
+            onSwiper={(swiper) => {
+              // Start autoplay when Swiper is ready
+              setTimeout(() => {
+                swiper.autoplay.start();
+              }, 150);
+            }}
+            onInit={(swiper) => {
+              // Ensure autoplay starts on initialization
+              setTimeout(() => {
+                swiper.autoplay.start();
+              }, 100);
+            }}
             breakpoints={{
               320: {
                 spaceBetween: 40,
