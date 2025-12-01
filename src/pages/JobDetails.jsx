@@ -113,7 +113,7 @@ const JobDetails = () => {
     <>
       <Navbar />
 
-      <div className="min-h-screen flex flex-col py-6 sm:py-10 px-4 sm:px-5 bg-gradient-to-br from-gray-50 to-blue-50/30">
+      <div className="min-h-screen flex flex-col pt-20 sm:pt-24 pb-6 sm:pb-10 px-4 sm:px-5 bg-gradient-to-br from-gray-50 to-blue-50/30">
         <div className="bg-white text-black rounded-xl sm:rounded-2xl w-full shadow-xl overflow-hidden">
           {/* Enhanced Header Section with Gradient Background */}
           <div className="relative flex justify-center md:justify-between flex-wrap gap-4 sm:gap-8 px-4 sm:px-8 lg:px-14 py-8 sm:py-12 lg:py-20 mb-4 sm:mb-6 bg-gradient-to-br from-indigo-50 via-blue-50 to-sky-50 border-b-4 border-indigo-500/20">

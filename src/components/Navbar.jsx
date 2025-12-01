@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { AppContext } from "../context/AppContext";
 
 /**
  * Navbar Component
- * شريط التنقل الرئيسي في الموقع
+ * شريط التنقل الرئيسي في الموقع مع animation للاختفاء والظهور عند السكرول
  */
 const Navbar = () => {
   const { openSignIn } = useClerk();
@@ -14,8 +14,53 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const { setShowRecruiterLogin, setShowAdminLogin } = useContext(AppContext);
+
+  // State لتتبع حالة السكرول
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    /**
+     * Handle scroll event
+     * تختفي الـ Navbar عند السكرول لأسفل وتظهر عند السكرول لأعلى
+     */
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // إذا كان المستخدم في أعلى الصفحة، أظهر الـ Navbar دائماً
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+
+      // إذا كان السكرول لأسفل (أكثر من 100px) وأكبر من آخر موضع، أخفي الـ Navbar
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      }
+      // إذا كان السكرول لأعلى، أظهر الـ Navbar
+      else if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    // إضافة event listener للسكرول
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // تنظيف event listener عند unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
-    <div className="shadow py-3 sm:py-4">
+    <div
+      className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 sm:py-4 transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="px-4 sm:px-5 flex justify-between items-center gap-2">
         <img
           className="cursor-pointer h-8 sm:h-auto max-w-[120px] sm:max-w-none"

@@ -186,7 +186,7 @@ const Applications = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 pt-16 sm:pt-20">
         <div className="px-4 sm:px-5 py-6 sm:py-10 max-w-7xl mx-auto">
           {/* Page Header */}
           <div className="mb-6 sm:mb-8">
