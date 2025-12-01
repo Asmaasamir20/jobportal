@@ -15,7 +15,9 @@ const Dashboard = () => {
     useContext(AppContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   // Reset image error when companyData changes
   useEffect(() => {
@@ -92,37 +94,76 @@ const Dashboard = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
+      // Close sidebar when clicking outside on mobile
+      if (
+        isSidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target) &&
+        !event.target.closest("[data-sidebar-toggle]")
+      ) {
+        setIsSidebarOpen(false);
+      }
     };
 
-    if (isDropdownOpen) {
+    if (isDropdownOpen || isSidebarOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isDropdownOpen]);
+  }, [isDropdownOpen, isSidebarOpen]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar for Recruiter Panel - Enhanced Design */}
       <div className="bg-white shadow-md border-b border-gray-200">
-        <div className="px-5 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
+        <div className="px-4 sm:px-5 py-3 sm:py-4 flex justify-between items-center gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Hamburger Menu Button - Mobile Only */}
+            <button
+              data-sidebar-toggle
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Toggle sidebar"
+            >
+              <svg
+                className="w-6 h-6 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isSidebarOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
             <img
-              onClick={() => navigate("/")}
-              className="max-sm:w-32 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => navigate("/dashboard/manage-jobs")}
+              className="h-8 sm:h-auto max-w-[100px] sm:max-w-[140px] cursor-pointer hover:opacity-80 transition-opacity"
               src={assets.logo}
               alt="Logo"
             />
             <div className="hidden md:block h-6 w-px bg-gray-300"></div>
-            <h1 className="hidden md:block text-lg font-semibold text-gray-800">
+            <h1 className="hidden md:block text-base lg:text-lg font-semibold text-gray-800">
               Recruiter Dashboard
             </h1>
           </div>
           {companyData && (
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-50 rounded-lg">
                 <svg
                   className="w-5 h-5 text-blue-600"
                   fill="none"
@@ -136,14 +177,15 @@ const Dashboard = () => {
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                   />
                 </svg>
-                <p className="text-sm font-medium text-blue-700">
-                  Welcome, {companyData.name}
+                <p className="text-xs sm:text-sm font-medium text-blue-700">
+                  Welcome,{" "}
+                  <span className="hidden lg:inline">{companyData.name}</span>
                 </p>
               </div>
               <div className="relative" ref={dropdownRef}>
                 <div
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all overflow-hidden border-2 border-gray-200"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all overflow-hidden border-2 border-gray-200"
                 >
                   {companyData.image && !imageError ? (
                     <img
@@ -205,11 +247,27 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex items-start">
+      <div className="flex items-start relative flex-1">
+        {/* Mobile Overlay */}
+        {isSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
         {/* Left Sidebar - Enhanced Design */}
-        <div className="inline-block min-h-screen border-r-2 bg-gray-50 w-64">
+        <div
+          ref={sidebarRef}
+          className={`fixed md:static top-0 left-0 h-full md:h-full z-50 md:z-auto border-r-2 bg-gray-50 w-64 transform transition-transform duration-300 ease-in-out ${
+            isSidebarOpen
+              ? "translate-x-0"
+              : "-translate-x-full md:translate-x-0"
+          } md:inline-block`}
+        >
           <ul className="flex flex-col items-start pt-5 text-gray-800">
             <NavLink
+              onClick={() => setIsSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center p-3 sm:px-6 gap-3 w-full transition-all duration-200 ${
                   isActive
@@ -224,10 +282,11 @@ const Dashboard = () => {
                 src={assets.add_icon}
                 alt="Add Job"
               />
-              <p className="max-sm:hidden">Add Job</p>
+              <p>Add Job</p>
             </NavLink>
 
             <NavLink
+              onClick={() => setIsSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center p-3 sm:px-6 gap-3 w-full transition-all duration-200 ${
                   isActive
@@ -242,10 +301,11 @@ const Dashboard = () => {
                 src={assets.home_icon}
                 alt="Manage Jobs"
               />
-              <p className="max-sm:hidden">Manage Jobs</p>
+              <p>Manage Jobs</p>
             </NavLink>
 
             <NavLink
+              onClick={() => setIsSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center p-3 sm:px-6 gap-3 w-full transition-all duration-200 ${
                   isActive
@@ -260,12 +320,12 @@ const Dashboard = () => {
                 src={assets.person_tick_icon}
                 alt="View Applications"
               />
-              <p className="max-sm:hidden">View Applications</p>
+              <p>View Applications</p>
             </NavLink>
           </ul>
         </div>
 
-        <div className="flex-1 bg-gray-50 min-h-screen">
+        <div className="flex-1 bg-gray-50 min-h-full">
           <Outlet />
         </div>
       </div>

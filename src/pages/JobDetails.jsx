@@ -9,12 +9,19 @@ import JobCard from "../components/JobCard";
 import kconvert from "k-convert";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { useUser, useClerk } from "@clerk/clerk-react";
 
-const Applyjob = () => {
+/**
+ * JobDetails Component
+ * Displays full job details without requiring authentication
+ * Users can view job information and apply if logged in
+ */
+const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useUser();
+  const { openSignIn } = useClerk();
   const [JobData, setJobData] = useState(null);
-  const [user, setUser] = useState(null);
   const { jobs } = useContext(AppContext);
 
   useEffect(() => {
@@ -36,9 +43,6 @@ const Applyjob = () => {
       }
 
       // البحث عن الوظيفة - دعم id كنص أو رقم
-      // بعض الوظائف القديمة من assets.js تستخدم id كنص ('1', '2') 
-      // والوظائف الجديدة من AddJob تستخدم id كرقم (Date.now())
-      // id من useParams() دائماً نص
       const jobIdFromUrl = String(id).trim();
       const jobIdNum = Number(jobIdFromUrl);
       
@@ -54,12 +58,12 @@ const Applyjob = () => {
           return true;
         }
         
-        // مقارنة مباشرة كرقم (إذا كان كلاهما أرقام صحيحة)
+        // مقارنة مباشرة كرقم
         if (!isNaN(currentJobIdNum) && !isNaN(jobIdNum) && currentJobIdNum === jobIdNum) {
           return true;
         }
         
-        // مقارنة مباشرة (نص مع نص أو رقم مع رقم)
+        // مقارنة مباشرة
         if (currentJobId === jobIdFromUrl || currentJobId === jobIdNum) {
           return true;
         }
@@ -68,27 +72,12 @@ const Applyjob = () => {
       });
       
       if (!job) {
-        console.error("Job not found!", {
-          searchedId: id,
-          jobIdFromUrl: jobIdFromUrl,
-          jobIdNum: jobIdNum,
-          jobsInStorage: storedJobs.length,
-          sampleJobIds: storedJobs.slice(0, 5).map(j => ({ 
-            id: j.id, 
-            type: typeof j.id,
-            title: j.title 
-          }))
-        });
         toast.error("Job not found!");
         navigate("/");
         return;
       }
       
       setJobData(job);
-
-      // جلب بيانات المستخدم
-      const storedUser = JSON.parse(localStorage.getItem("userData") || "{}");
-      setUser(storedUser);
     } catch (error) {
       console.error("Error loading job data:", error);
       toast.error("Error loading job data. Please try again.");
@@ -96,80 +85,22 @@ const Applyjob = () => {
     }
   }, [id, navigate]);
 
-  const uploadResume = (file) => {
-    if (!file) return;
-    const updatedUser = { ...user, resume: file.name };
-    localStorage.setItem("userData", JSON.stringify(updatedUser));
-    setUser(updatedUser);
-    toast.success("Resume uploaded successfully!");
-  };
-
   /**
-   * Handle job application submission
-   * Validates user data and prevents duplicate applications
+   * Handle job application - requires login
    */
-  const applyHandler = () => {
-    try {
-      // التحقق من وجود بيانات الوظيفة
-      if (!JobData || !JobData.id) {
-        toast.error("Job data is missing. Please try again.");
-        return;
-      }
-
-      // التحقق من تسجيل الدخول
-      if (!user || !user.clerkId) {
-        toast.error("Please login to apply for jobs");
-        return;
-      }
-
-      // التحقق من وجود السيرة الذاتية
-      if (!user.resume) {
-        toast.error("Please upload your resume before applying");
-        return;
-      }
-
-      // جلب الطلبات السابقة
-      let storedApplications = [];
-      try {
-        const stored = localStorage.getItem("userApplications");
-        storedApplications = stored ? JSON.parse(stored) : [];
-        
-        if (!Array.isArray(storedApplications)) {
-          storedApplications = [];
-        }
-      } catch (error) {
-        console.error("Error reading applications:", error);
-        storedApplications = [];
-      }
-
-      // التحقق من التقديم السابق
-      const alreadyApplied = storedApplications.find(
-        (app) => app.jobId === JobData.id && app.userId === user.clerkId
-      );
-
-      if (alreadyApplied) {
-        toast.info("You have already applied for this job.");
-        return;
-      }
-
-      // إنشاء طلب جديد
-      const newApplication = {
-        jobId: JobData.id,
-        userId: user.clerkId,
-        appliedAt: new Date().toISOString(),
-      };
-
-      // حفظ الطلب
-      localStorage.setItem(
-        "userApplications",
-        JSON.stringify([...storedApplications, newApplication])
-      );
-
-      toast.success("Applied successfully!");
-    } catch (error) {
-      console.error("Error applying for job:", error);
-      toast.error("An error occurred. Please try again.");
+  const handleApply = () => {
+    if (!user) {
+      toast.info("يرجى تسجيل الدخول أولاً للتقديم على الوظيفة");
+      openSignIn();
+      return;
     }
+
+    if (!JobData || !JobData.id) {
+      toast.error("Job data is missing. Please try again.");
+      return;
+    }
+
+    navigate(`/apply-job/${JobData.id}`);
   };
 
   if (!JobData) return <Loading />;
@@ -184,7 +115,7 @@ const Applyjob = () => {
             <div className="flex flex-col md:flex-row items-center ">
               <img
                 className="h-16 sm:h-20 lg:h-24 bg-white rounded-lg p-2 sm:p-4 mr-0 md:mr-4 max-md:mb-4 border"
-                src={JobData.companyImage || assets.default_company}
+                src={JobData.companyImage || assets.company_icon}
                 alt={JobData.companyName || "Company"}
               />
               <div className="text-center md:text-left text-neutral-700">
@@ -211,20 +142,9 @@ const Applyjob = () => {
             </div>
 
             <div className="flex flex-col justify-center text-end text-xs sm:text-sm max-md:mx-auto max-md:text-center mt-4 md:mt-0">
-              {!user?.resume && (
-                <label className="bg-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded cursor-pointer mb-2 text-xs sm:text-sm">
-                  Upload Resume
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    className="hidden"
-                    onChange={(e) => uploadResume(e.target.files[0])}
-                  />
-                </label>
-              )}
               <button
-                onClick={applyHandler}
-                className="bg-blue-600 p-2 sm:p-2.5 px-6 sm:px-8 lg:px-10 text-white rounded text-xs sm:text-sm"
+                onClick={handleApply}
+                className="bg-blue-600 p-2 sm:p-2.5 px-6 sm:px-8 lg:px-10 text-white rounded text-xs sm:text-sm mb-2"
               >
                 Apply Now
               </button>
@@ -234,15 +154,15 @@ const Applyjob = () => {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-6 lg:gap-0">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-6 lg:gap-0 px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div className="w-full lg:w-2/3">
               <h2 className="font-bold text-xl sm:text-2xl mb-3 sm:mb-4">Job description</h2>
               <div
-                className="rich-text"
+                className="rich-text prose prose-sm sm:prose-base max-w-none"
                 dangerouslySetInnerHTML={{ __html: JobData.description }}
               ></div>
               <button
-                onClick={applyHandler}
+                onClick={handleApply}
                 className="bg-blue-600 p-2 sm:p-2.5 px-6 sm:px-8 lg:px-10 text-white rounded text-xs sm:text-sm mt-6 sm:mt-10"
               >
                 Apply Now
@@ -270,4 +190,5 @@ const Applyjob = () => {
   );
 };
 
-export default Applyjob;
+export default JobDetails;
+

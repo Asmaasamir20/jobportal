@@ -55,32 +55,32 @@ const Hero = () => {
     }
 
    return (
-     <div className='container 2xl:px-20 mx-auto my-10'>
-        <div className='bg-gradient-to-r from-purple-800 to-purple-950 text-white py-16 text-center mx-2 rounded-xl shadow-lg transform transition-all duration-300 hover:shadow-2xl'>
-            <h2 className='text-2xl md:text-3xl lg:text-4xl font-medium mb-4 animate-fade-in'>
+     <div className='px-4 sm:px-5 my-6 sm:my-10'>
+        <div className='bg-gradient-to-r from-purple-800 to-purple-950 text-white py-8 sm:py-12 lg:py-16 text-center mx-0 sm:mx-2 rounded-lg sm:rounded-xl shadow-lg transform transition-all duration-300 hover:shadow-2xl'>
+            <h2 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium mb-3 sm:mb-4 px-4 animate-fade-in'>
                 Over 10,000+ jobs to apply
             </h2>
-            <p className='mb-8 max-w-xl mx-auto text-sm font-light px-5'>
+            <p className='mb-6 sm:mb-8 max-w-xl mx-auto text-xs sm:text-sm font-light px-4 sm:px-5'>
                 Your Next Big Career Move Starts Right Here - Explore The Best Job Opportunities And Take The First Step Toward Your Future!
             </p>
             
             {/* Search Form - Enhanced Design */}
             <form 
                 onSubmit={onSearch}
-                className='max-w-4xl mx-4 sm:mx-auto'
+                className='max-w-4xl mx-2 sm:mx-4 lg:mx-auto'
             >
-                <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white rounded-lg p-2 shadow-xl'>
+                <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 bg-white rounded-lg p-2 sm:p-3 shadow-xl'>
                     {/* Job Title Search */}
-                    <div className='flex items-center flex-1 bg-gray-50 rounded-lg px-4 py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all'>
+                    <div className='flex items-center flex-1 bg-gray-50 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all'>
                         <img 
-                            className='h-5 w-5 mr-3 text-gray-400' 
+                            className='h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-gray-400 flex-shrink-0' 
                             src={assets.search_icon} 
                             alt="Search" 
                         />
                         <input 
                             type="text"
                             placeholder='Search for jobs'
-                            className='flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-sm sm:text-base'
+                            className='flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-xs sm:text-sm lg:text-base'
                             value={titleInput}
                             onChange={(e) => setTitleInput(e.target.value)}
                             onKeyPress={handleKeyPress}
@@ -88,16 +88,16 @@ const Hero = () => {
                     </div>
 
                     {/* Location Search */}
-                    <div className='flex items-center flex-1 bg-gray-50 rounded-lg px-4 py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all'>
+                    <div className='flex items-center flex-1 bg-gray-50 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all'>
                         <img 
-                            className='h-5 w-5 mr-3 text-gray-400' 
+                            className='h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-gray-400 flex-shrink-0' 
                             src={assets.location_icon} 
                             alt="Location" 
                         />
                         <input 
                             type="text"
                             placeholder='Location'
-                            className='flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-sm sm:text-base'
+                            className='flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-xs sm:text-sm lg:text-base'
                             value={locationInput}
                             onChange={(e) => setLocationInput(e.target.value)}
                             onKeyPress={handleKeyPress}
@@ -107,7 +107,7 @@ const Hero = () => {
                     {/* Search Button */}
                     <button 
                         type="submit"
-                        className='bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg whitespace-nowrap'
+                        className='bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-medium transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg whitespace-nowrap'
                     >
                         Search
                     </button>
@@ -115,37 +115,37 @@ const Hero = () => {
             </form>
         </div>
         {/* Trusted By Section - Enhanced Design */}
-        <div className='border border-gray-200 shadow-md mx-2 mt-5 p-6 rounded-lg bg-white'>
-            <div className='flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 lg:gap-12 flex-wrap'>
-                <p className='text-gray-600 font-medium text-sm sm:text-base'>Trusted by</p>
-                <div className='flex items-center gap-4 sm:gap-6 lg:gap-8 flex-wrap justify-center'>
+        <div className='border border-gray-200 shadow-md mx-0 sm:mx-2 mt-4 sm:mt-5 p-4 sm:p-6 rounded-lg bg-white'>
+            <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 lg:gap-8 xl:gap-12 flex-wrap'>
+                <p className='text-gray-600 font-medium text-xs sm:text-sm lg:text-base'>Trusted by</p>
+                <div className='flex items-center gap-3 sm:gap-4 lg:gap-6 xl:gap-8 flex-wrap justify-center'>
                     <img 
-                        className='h-6 sm:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
+                        className='h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
                         src={assets.microsoft_logo} 
                         alt="Microsoft" 
                     />
                     <img 
-                        className='h-6 sm:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
+                        className='h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
                         src={assets.walmart_logo} 
                         alt="Walmart" 
                     />
                     <img 
-                        className='h-6 sm:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
+                        className='h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
                         src={assets.accenture_logo} 
                         alt="Accenture" 
                     />
                     <img 
-                        className='h-6 sm:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
+                        className='h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
                         src={assets.samsung_logo} 
                         alt="Samsung" 
                     />
                     <img 
-                        className='h-6 sm:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
+                        className='h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
                         src={assets.amazon_logo} 
                         alt="Amazon" 
                     /> 
                     <img 
-                        className='h-6 sm:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
+                        className='h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200' 
                         src={assets.adobe_logo} 
                         alt="Adobe" 
                     /> 

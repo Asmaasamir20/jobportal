@@ -167,7 +167,7 @@ const ManageJobs = () => {
     visibilityFilter !== "all";
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="px-5 py-6">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-3xl font-bold text-gray-900 mb-2">

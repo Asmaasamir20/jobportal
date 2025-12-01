@@ -29,14 +29,15 @@ const Applications = () => {
   return (
     <>
       <Navbar />
-      <div className='container px-4 min-h-[65vh] 2xl:px-20 mx-auto my-10'>
-        <h2 className='text-xl font-semibold'>Your Resume</h2>
-        <div className='flex gap-2 mb-6 mt-3'> 
+      <div className='px-4 sm:px-5 min-h-[65vh] my-6 sm:my-10'>
+        <h2 className='text-lg sm:text-xl font-semibold'>Your Resume</h2>
+        <div className='flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6 mt-3'> 
           {isEdit 
             ? (
               <>
                 <label className='flex items-center' htmlFor="resumeUpload">
-                  <p className='bg-blue-100 text-blue-600 px-4 py-2 rounded-lg mr-2'>Select Resume</p>
+                  <p className='bg-blue-100 text-blue-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg mr-2 text-xs sm:text-sm'>Select Resume</p>
+                  <img className='w-5 h-5 sm:w-6 sm:h-6' src={assets.profile_upload_icon} alt="Upload" />
                   <input
                     id='resumeUpload'
                     onChange={e => saveResume(e.target.files[0])}
@@ -44,31 +45,30 @@ const Applications = () => {
                     type="file"
                     hidden
                   />
-                  <img src={assets.profile_upload_icon} alt="" />
                 </label>
                 <button
                   onClick={() => setIsEdit(false)}
-                  className='bg-gray-100 border border-green-400 rounded-lg px-4 py-2'
+                  className='bg-gray-100 border border-green-400 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm'
                 >
                   Cancel
                 </button>
               </>
             ) 
             : (
-              <div className='flex gap-2'>
+              <div className='flex flex-col sm:flex-row gap-2'>
                 {resume ? (
                   <a
-                    className='bg-blue-100 text-blue-600 px-4 py-2 rounded-lg'
+                    className='bg-blue-100 text-blue-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm truncate'
                     href="#"
                   >
                     {resume.name}
                   </a>
                 ) : (
-                  <span className='text-gray-500 px-4 py-2'>No Resume Uploaded</span>
+                  <span className='text-gray-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm'>No Resume Uploaded</span>
                 )}
                 <button
                   onClick={() => setIsEdit(true)}
-                  className='text-gray-500 border border-gray-300 rounded-lg px-4 py-2'
+                  className='text-gray-500 border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm'
                 >
                   Edit
                 </button>
@@ -77,7 +77,7 @@ const Applications = () => {
           }
         </div>
 
-        <h2 className='text-xl font-semibold mb-4'>Jobs Applied</h2>
+        <h2 className='text-lg sm:text-xl font-semibold mb-3 sm:mb-4'>Jobs Applied</h2>
         <table className='min-w-full bg-white border rounded-lg'>
           <thead>
             <tr>

@@ -15,45 +15,48 @@ const Navbar = () => {
 
   const { setShowRecruiterLogin, setShowAdminLogin } = useContext(AppContext);
   return (
-    <div className="shadow py-4">
-      <div className="container px-4 2xl:px-20 mx-auto flex justify-between items-center">
+    <div className="shadow py-3 sm:py-4">
+      <div className="px-4 sm:px-5 flex justify-between items-center gap-2">
         <img
-          className="cursor-pointer"
+          className="cursor-pointer h-8 sm:h-auto max-w-[120px] sm:max-w-none"
           onClick={() => navigate("/")}
           src={assets.logo}
-          alt=""
+          alt="Logo"
         />
         {user ? (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               to={"/applications"}
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className="text-xs sm:text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap"
             >
               Applied Jobs
             </Link>
-            <p className="text-gray-300">|</p>
-            <p className="max-sm:hidden text-gray-700">
+            <p className="text-gray-300 hidden sm:block">|</p>
+            <p className="hidden sm:block text-sm text-gray-700">
               Hi, {user.firstName + " " + user.lastName}
             </p>
-            <UserButton />
+            <div className="scale-90 sm:scale-100">
+              <UserButton />
+            </div>
           </div>
         ) : (
-          <div className="flex gap-4 max-sm:text-xs items-center">
+          <div className="flex gap-2 sm:gap-4 items-center">
             <button
-              className="text-gray-600 hover:text-blue-600 transition-colors duration-200"
+              className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap"
               onClick={(e) => setShowRecruiterLogin(true)}
             >
-              Recruiter Login
+              <span className="hidden sm:inline">Recruiter Login</span>
+              <span className="sm:hidden">Recruiter</span>
             </button>
             <button
-              className="text-gray-600 max-sm:text-xs hover:text-blue-600 transition-colors duration-200"
+              className="text-xs sm:text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
               onClick={() => setShowAdminLogin(true)}
             >
               Admin
             </button>
             <button
               onClick={(e) => openSignIn()}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-9 py-2 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 lg:px-9 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap"
             >
               Login
             </button>

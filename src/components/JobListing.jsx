@@ -249,9 +249,9 @@ const JobListing = () => {
   }, [jobs, selectedCategories, selectedLocation, searchFilter]);
 
   return (
-    <div className="container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8">
+    <div className="px-4 sm:px-5 flex flex-col lg:flex-row max-lg:space-y-6 sm:max-lg:space-y-8 py-6 sm:py-8">
       {/* Sidebar - Filters */}
-      <div className="w-full lg:w-1/4 bg-white px-4 py-4 rounded-lg shadow-sm border border-gray-100">
+      <div className="w-full lg:w-1/4 bg-white px-3 sm:px-4 py-3 sm:py-4 rounded-lg shadow-sm border border-gray-100">
         {/* Active Filters Section */}
         {(isSearched && (searchFilter.title || searchFilter.location)) || 
          selectedCategories.length > 0 || 
@@ -392,7 +392,7 @@ const JobListing = () => {
       </div>
 
       {/* Job Listing Section */}
-      <section className="w-full lg:w-3/4 text-gray-800 max-lg:px-4">
+      <section className="w-full lg:w-3/4 text-gray-800 max-lg:px-0 sm:max-lg:px-4">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="font-semibold text-2xl sm:text-3xl py-2" id="job-list">
@@ -410,7 +410,7 @@ const JobListing = () => {
         </div>
 
         {/* Jobs Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 items-stretch">
           {loadingJobs ? (
             <SkeletonLoader count={6} />
           ) : filteredJobs.length > 0 ? (

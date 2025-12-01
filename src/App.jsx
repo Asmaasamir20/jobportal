@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Applyjob from "./pages/ApplyJob";
+import JobDetails from "./pages/JobDetails";
 import Applications from "./pages/Applications";
 import RecruiterLogin from "./components/RecruiterLogin";
 import AdminLogin from "./components/AdminLogin";
@@ -30,6 +31,7 @@ const App = () => {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/job-details/:id" element={<JobDetails />} />
           <Route path="/apply-job/:id" element={<Applyjob />} />
           <Route path="/applications" element={<Applications />} />
 

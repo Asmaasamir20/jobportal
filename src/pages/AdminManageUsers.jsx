@@ -176,7 +176,7 @@ const AdminManageUsers = () => {
   }, [activeTab]);
 
   return (
-    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+    <div className="px-5 py-6">
       <div className="mb-4 sm:mb-6">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Users Management</h2>
         <p className="text-sm sm:text-base text-gray-600">Manage job seekers and companies registered on the platform</p>
@@ -440,22 +440,25 @@ const AdminManageUsers = () => {
                   >
                     <td className="py-3 px-4 text-gray-500">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                     <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className="relative">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="relative flex-shrink-0">
                           <img
-                            className="w-10 h-10 rounded-full border-2 border-gray-200"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-200 object-cover"
                             src={user.image || assets.company_icon}
                             alt={user.name}
                             onError={(e) => {
                               e.target.src = assets.company_icon;
                             }}
                           />
-                          <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                          <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 border-2 border-white rounded-full"></div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{user.name || 'N/A'}</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-semibold text-sm sm:text-base text-gray-900 truncate">{user.name || 'N/A'}</div>
+                          {user.email && (
+                            <div className="text-xs text-gray-500 sm:hidden truncate">{user.email}</div>
+                          )}
                           {user.clerkId && (
-                            <div className="text-xs text-gray-500">ID: {user.clerkId.slice(0, 8)}...</div>
+                            <div className="text-xs text-gray-500 hidden sm:block">ID: {user.clerkId.slice(0, 8)}...</div>
                           )}
                         </div>
                       </div>
@@ -528,21 +531,24 @@ const AdminManageUsers = () => {
                   >
                     <td className="py-3 px-4 text-gray-500">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                     <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className="relative">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="relative flex-shrink-0">
                           <img
-                            className="w-10 h-10 rounded-full border-2 border-gray-200"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-gray-200 object-cover"
                             src={company.image || assets.company_icon}
                             alt={company.name}
                             onError={(e) => {
                               e.target.src = assets.company_icon;
                             }}
                           />
-                          <div className="absolute bottom-0 right-0 w-3 h-3 bg-blue-500 border-2 border-white rounded-full"></div>
+                          <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-blue-500 border-2 border-white rounded-full"></div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">{company.name}</div>
-                          <div className="text-xs text-gray-500">Company</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-semibold text-sm sm:text-base text-gray-900 truncate">{company.name}</div>
+                          {company.email && (
+                            <div className="text-xs text-gray-500 sm:hidden truncate">{company.email}</div>
+                          )}
+                          <div className="text-xs text-gray-500 hidden sm:block">Company</div>
                         </div>
                       </div>
                     </td>

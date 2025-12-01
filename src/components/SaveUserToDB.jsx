@@ -17,8 +17,6 @@ function SaveUserToDB() {
 
       // خزن المستخدم في localStorage
       localStorage.setItem("userData", JSON.stringify(userData));
-
-      console.log("✅ User saved locally!");
     } catch (error) {
       console.error("❌ Error saving user locally:", error);
     }
