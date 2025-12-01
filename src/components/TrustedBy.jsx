@@ -36,7 +36,7 @@ const TrustedBy = () => {
   // Improved initialization to prevent glitches on reload
   useEffect(() => {
     let isInitialized = false;
-    
+
     const initializeSwiper = () => {
       if (swiperRef.current?.swiper && !isInitialized) {
         const swiper = swiperRef.current.swiper;
@@ -45,15 +45,15 @@ const TrustedBy = () => {
         // Reset to middle position for seamless infinite scroll
         // Start from middle of duplicated slides to allow scrolling in both directions
         const middleIndex = Math.floor(duplicatedCompanies.length / 2);
-        
+
         // Disable transitions temporarily for instant positioning on reload
         swiper.setTransition(0);
         swiper.slideTo(middleIndex, 0);
-        
+
         // Re-enable transitions after positioning
         requestAnimationFrame(() => {
           swiper.setTransition(5000); // Match the speed value used in Swiper config
-          
+
           // Ensure autoplay is properly initialized and running
           if (swiper.autoplay) {
             swiper.autoplay.stop();
@@ -136,7 +136,7 @@ const TrustedBy = () => {
               const middleIndex = Math.floor(duplicatedCompanies.length / 2);
               swiper.setTransition(0);
               swiper.slideTo(middleIndex, 0);
-              
+
               // Re-enable transitions and start autoplay after positioning
               requestAnimationFrame(() => {
                 swiper.setTransition(5000);
