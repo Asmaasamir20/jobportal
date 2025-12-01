@@ -193,3 +193,40 @@ button:focus-visible, a:focus-visible {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
 }
+
+/* Hide scrollbar but keep scrolling functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Smooth horizontal scroll */
+.scrollbar-hide {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* TrustedBy Swiper - Continuous smooth scrolling without gaps */
+.trusted-by-swiper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.trusted-by-swiper .swiper-wrapper {
+  display: flex;
+  align-items: center;
+  transition-timing-function: linear !important;
+  will-change: transform;
+}
+
+.trusted-by-swiper .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: auto !important;
+}

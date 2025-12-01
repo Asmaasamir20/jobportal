@@ -12,6 +12,8 @@ const Home = () => {
       <SaveUserToDB />
 
       <Hero />
+      {/* Trusted By Section */}
+  
       <JobListing />
       <AppDownload />
       <Footer />

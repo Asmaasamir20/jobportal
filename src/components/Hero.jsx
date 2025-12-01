@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
-
+import TrustedBy from "./TrustedBy";
 /**
  * Hero Component
  * Main hero section with search bar
@@ -18,7 +18,7 @@ const Hero = () => {
   const debounceTimerRef = useRef(null);
   const titleInputRef = useRef(null);
   const locationInputRef = useRef(null);
-
+   
   // Popular searches
   const popularSearches = [
     "Software Engineer",
@@ -165,8 +165,8 @@ const Hero = () => {
   };
 
   return (
-    <div className="px-4 sm:px-5 my-6 sm:my-10 overflow-hidden">
-      <div className="bg-gradient-to-r from-purple-800 to-purple-950 text-white py-8 sm:py-12 lg:py-16 text-center mx-0 sm:mx-2 rounded-lg sm:rounded-xl shadow-lg transform transition-all duration-300 hover:shadow-2xl max-w-full">
+    <div className="px-4 sm:px-5 my-6 sm:my-10 mb-4 sm:mb-6 overflow-visible relative z-40">
+      <div className="bg-gradient-to-r from-purple-800 to-purple-950 text-white py-8 sm:py-12 lg:py-16 text-center mx-0 sm:mx-2 rounded-lg sm:rounded-xl shadow-lg transform transition-all duration-300 hover:shadow-2xl max-w-full overflow-visible relative">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-4 animate-fade-in">
           Over 10,000+ jobs to apply
         </h2>
@@ -178,11 +178,14 @@ const Hero = () => {
         {/* Search Form - Enhanced Design with Autocomplete */}
         <form
           onSubmit={onSearch}
-          className="max-w-4xl mx-2 sm:mx-4 lg:mx-auto overflow-visible"
+          className="max-w-4xl mx-2 sm:mx-4 lg:mx-auto relative z-[90] overflow-visible"
         >
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 bg-white rounded-lg p-2 sm:p-3 shadow-xl w-full">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 bg-white rounded-lg p-2 sm:p-3 shadow-xl w-full relative z-[90] overflow-visible">
             {/* Job Title Search with Autocomplete */}
-            <div className="relative flex-1" ref={titleInputRef}>
+            <div
+              className="relative flex-1 overflow-visible"
+              ref={titleInputRef}
+            >
               <div className="flex items-center bg-gray-50 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all">
                 <img
                   className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-gray-400 flex-shrink-0"
@@ -205,7 +208,7 @@ const Hero = () => {
               {/* Autocomplete Suggestions */}
               {showTitleSuggestions &&
                 (titleSuggestions.length > 0 || popularSearches.length > 0) && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-60 overflow-y-auto w-full min-w-[200px]">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl border border-gray-200 z-[100] max-h-60 overflow-y-auto w-full min-w-[200px]">
                     {titleSuggestions.length > 0 ? (
                       <div className="p-2">
                         <p className="text-xs text-gray-500 px-3 py-1 font-semibold">
@@ -272,7 +275,10 @@ const Hero = () => {
             </div>
 
             {/* Location Search with Autocomplete */}
-            <div className="relative flex-1" ref={locationInputRef}>
+            <div
+              className="relative flex-1 overflow-visible"
+              ref={locationInputRef}
+            >
               <div className="flex items-center bg-gray-50 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all">
                 <img
                   className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-gray-400 flex-shrink-0"
@@ -296,7 +302,7 @@ const Hero = () => {
               {showLocationSuggestions &&
                 (locationSuggestions.length > 0 ||
                   popularLocations.length > 0) && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-60 overflow-y-auto w-full min-w-[200px]">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl border border-gray-200 z-[100] max-h-60 overflow-y-auto w-full min-w-[200px]">
                     {locationSuggestions.length > 0 ? (
                       <div className="p-2">
                         <p className="text-xs text-gray-500 px-3 py-1 font-semibold">
@@ -391,45 +397,8 @@ const Hero = () => {
           </div>
         </form>
       </div>
-      {/* Trusted By Section - Enhanced Design */}
-      <div className="border border-gray-200 shadow-md mx-0 sm:mx-2 mt-4 sm:mt-5 p-4 sm:p-6 rounded-lg bg-white overflow-hidden max-w-full">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 lg:gap-8 xl:gap-12 flex-wrap">
-          <p className="text-gray-600 font-semibold text-sm sm:text-base lg:text-lg">
-            Trusted by
-          </p>
-          <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 xl:gap-8 flex-wrap justify-center">
-            <img
-              className="h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.microsoft_logo}
-              alt="Microsoft"
-            />
-            <img
-              className="h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.walmart_logo}
-              alt="Walmart"
-            />
-            <img
-              className="h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.accenture_logo}
-              alt="Accenture"
-            />
-            <img
-              className="h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.samsung_logo}
-              alt="Samsung"
-            />
-            <img
-              className="h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.amazon_logo}
-              alt="Amazon"
-            />
-            <img
-              className="h-5 sm:h-6 lg:h-7 opacity-70 hover:opacity-100 transition-opacity duration-200"
-              src={assets.adobe_logo}
-              alt="Adobe"
-            />
-          </div>
-        </div>
+      <div className="mt-16">
+        <TrustedBy />
       </div>
     </div>
   );
