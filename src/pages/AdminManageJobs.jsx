@@ -510,18 +510,16 @@ const AdminManageJobs = () => {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className={`px-4 py-2 rounded-lg border font-medium transition-all duration-200 ${
+            className={`w-10 h-10 flex items-center justify-center rounded-lg border-2 font-medium transition-all duration-300 ${
               currentPage === 1
-                ? "border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50"
-                : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-blue-500 hover:text-blue-600"
+                ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
+                : "border-gray-300 bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-600 hover:shadow-md transform hover:scale-105"
             }`}
+            aria-label="Previous page"
           >
-            <span className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Previous
-            </span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
 
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
@@ -552,18 +550,16 @@ const AdminManageJobs = () => {
           <button
             onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className={`px-4 py-2 rounded-lg border font-medium transition-all duration-200 ${
+            className={`w-10 h-10 flex items-center justify-center rounded-lg border-2 font-medium transition-all duration-300 ${
               currentPage === totalPages
-                ? "border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50"
-                : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-blue-500 hover:text-blue-600"
+                ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
+                : "border-gray-300 bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-600 hover:shadow-md transform hover:scale-105"
             }`}
+            aria-label="Next page"
           >
-            <span className="flex items-center gap-1">
-              Next
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </button>
           
           <div className="ml-4 text-sm text-gray-600">

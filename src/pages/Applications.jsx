@@ -18,7 +18,8 @@ import kconvert from "k-convert";
 const Applications = () => {
   const navigate = useNavigate();
   const { user } = useUser();
-  const { userApplications, jobs, userData, setUserData } = useContext(AppContext);
+  const { userApplications, jobs, userData, setUserData } =
+    useContext(AppContext);
   const [isEdit, setIsEdit] = useState(false);
   const [resume, setResume] = useState(null);
   const [statusFilter, setStatusFilter] = useState("all"); // all, pending, accepted, rejected
@@ -40,12 +41,12 @@ const Applications = () => {
    */
   const saveResume = (file) => {
     if (!file) return;
-    
+
     // Validate file type
     const allowedTypes = ["application/pdf", ".pdf", ".doc", ".docx"];
     const fileType = file.type || file.name.split(".").pop().toLowerCase();
-    
-    if (!allowedTypes.some(type => fileType.includes(type))) {
+
+    if (!allowedTypes.some((type) => fileType.includes(type))) {
       toast.error("Please upload a PDF, DOC, or DOCX file");
       return;
     }
@@ -63,7 +64,12 @@ const Applications = () => {
    * Merges userApplications with jobs data to show complete information
    */
   const applicationsWithJobs = useMemo(() => {
-    if (!userApplications || !Array.isArray(userApplications) || !jobs || !Array.isArray(jobs)) {
+    if (
+      !userApplications ||
+      !Array.isArray(userApplications) ||
+      !jobs ||
+      !Array.isArray(jobs)
+    ) {
       return [];
     }
 
@@ -83,7 +89,9 @@ const Applications = () => {
         const jobId = app.jobId;
         const job = jobs.find((j) => {
           if (!j || j.id === undefined || j.id === null) return false;
-          return String(j.id) === String(jobId) || Number(j.id) === Number(jobId);
+          return (
+            String(j.id) === String(jobId) || Number(j.id) === Number(jobId)
+          );
         });
 
         if (!job) return null;
@@ -122,7 +130,9 @@ const Applications = () => {
         case "oldest":
           return dateA - dateB;
         case "company":
-          return (a.job?.companyName || "").localeCompare(b.job?.companyName || "");
+          return (a.job?.companyName || "").localeCompare(
+            b.job?.companyName || ""
+          );
         default:
           return dateB - dateA;
       }
@@ -287,7 +297,9 @@ const Applications = () => {
                           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                         />
                       </svg>
-                      <span className="text-sm sm:text-base">No Resume Uploaded</span>
+                      <span className="text-sm sm:text-base">
+                        No Resume Uploaded
+                      </span>
                     </div>
                   )}
                   <button
@@ -321,7 +333,9 @@ const Applications = () => {
                 <div className="text-2xl sm:text-3xl font-bold text-blue-700 mb-1">
                   {stats.total}
                 </div>
-                <div className="text-xs sm:text-sm text-gray-600">Total Applications</div>
+                <div className="text-xs sm:text-sm text-gray-600">
+                  Total Applications
+                </div>
               </div>
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200/50 shadow-sm">
                 <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-1">
@@ -365,7 +379,8 @@ const Applications = () => {
                   Jobs Applied
                 </h2>
                 <p className="text-sm text-gray-500">
-                  {filteredApplications.length} application{filteredApplications.length !== 1 ? "s" : ""} found
+                  {filteredApplications.length} application
+                  {filteredApplications.length !== 1 ? "s" : ""} found
                 </p>
               </div>
 
@@ -427,7 +442,8 @@ const Applications = () => {
                         {/* Company Logo */}
                         <div className="flex-shrink-0">
                           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden border-2 border-gray-200 shadow-sm">
-                            {job.companyImage && !job.companyImage.startsWith("blob:") ? (
+                            {job.companyImage &&
+                            !job.companyImage.startsWith("blob:") ? (
                               <img
                                 className="w-full h-full object-contain p-2"
                                 src={job.companyImage}

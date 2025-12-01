@@ -195,10 +195,22 @@ const JobListing = () => {
   } = useContext(AppContext);
 
   const [showFilter, setShowFilter] = useState(false);
-  const [CurrentPage, setCurrentPage] = useState(1);
+  // Load current page from localStorage on mount, default to 1
+  const [CurrentPage, setCurrentPage] = useState(() => {
+    const savedPage = localStorage.getItem("jobListingCurrentPage");
+    return savedPage ? parseInt(savedPage, 10) : 1;
+  });
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
+
+  /**
+   * Save current page to localStorage whenever it changes
+   * This ensures page number persists after page reload
+   */
+  useEffect(() => {
+    localStorage.setItem("jobListingCurrentPage", CurrentPage.toString());
+  }, [CurrentPage]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prev) =>
@@ -264,8 +276,23 @@ const JobListing = () => {
       );
 
     setFilteredJobs(newFilteredJobs);
+    // Reset to page 1 when filters change
     setCurrentPage(1);
   }, [jobs, selectedCategories, selectedLocation, searchFilter]);
+
+  /**
+   * Validate and adjust current page when filtered jobs change
+   * Ensures current page doesn't exceed available pages
+   */
+  useEffect(() => {
+    if (filteredJobs.length > 0) {
+      const maxPages = Math.ceil(filteredJobs.length / 6);
+      if (CurrentPage > maxPages) {
+        setCurrentPage(1);
+        localStorage.setItem("jobListingCurrentPage", "1");
+      }
+    }
+  }, [filteredJobs.length, CurrentPage]);
 
   return (
     <div className="px-4 sm:px-5 flex flex-col lg:flex-row max-lg:space-y-6 sm:max-lg:space-y-8 py-6 sm:py-8 gap-4 lg:gap-5">
@@ -540,18 +567,26 @@ const JobListing = () => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 disabled={CurrentPage === 1}
-                className={`p-2 rounded-lg border transition-all duration-200 ${
+                className={`w-10 h-10 flex items-center justify-center rounded-lg border-2 transition-all duration-300 ${
                   CurrentPage === 1
-                    ? "border-gray-200 text-gray-400 cursor-not-allowed"
-                    : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-blue-500"
+                    ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
+                    : "border-gray-300 bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-600 hover:shadow-md transform hover:scale-105"
                 }`}
                 aria-label="Previous page"
               >
-                <img
-                  src={assets.left_arrow_icon}
-                  alt="Previous"
-                  className="h-5 w-5"
-                />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
               </button>
 
               <div className="flex items-center gap-1">
@@ -606,18 +641,26 @@ const JobListing = () => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 disabled={CurrentPage === Math.ceil(filteredJobs.length / 6)}
-                className={`p-2 rounded-lg border transition-all duration-200 ${
+                className={`w-10 h-10 flex items-center justify-center rounded-lg border-2 transition-all duration-300 ${
                   CurrentPage === Math.ceil(filteredJobs.length / 6)
-                    ? "border-gray-200 text-gray-400 cursor-not-allowed"
-                    : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-blue-500"
+                    ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
+                    : "border-gray-300 bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-600 hover:shadow-md transform hover:scale-105"
                 }`}
                 aria-label="Next page"
               >
-                <img
-                  src={assets.right_arrow_icon}
-                  alt="Next"
-                  className="h-5 w-5"
-                />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </button>
             </div>
 
