@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -57,19 +57,19 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 sm:py-4 transition-transform duration-300 ease-in-out ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 sm:py-4 transition-transform duration-300 ease-in-out max-w-full overflow-x-hidden ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="px-4 sm:px-5 flex justify-between items-center gap-2">
+      <div className="px-4 sm:px-5 flex justify-between items-center gap-2 max-w-full">
         <img
-          className="cursor-pointer h-8 sm:h-auto max-w-[120px] sm:max-w-none"
+          className="cursor-pointer h-8 sm:h-auto max-w-[120px] sm:max-w-none flex-shrink-0"
           onClick={() => navigate("/")}
           src={assets.logo}
           alt="Logo"
         />
         {user ? (
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <Link
               to={"/applications"}
               className="text-sm sm:text-base text-gray-700 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap font-medium"
@@ -85,10 +85,10 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="flex gap-2 sm:gap-4 items-center">
+          <div className="flex gap-2 sm:gap-4 items-center flex-shrink-0">
             <button
               className="text-sm sm:text-base text-gray-600 hover:text-blue-600 transition-colors duration-200 whitespace-nowrap font-medium"
-              onClick={(e) => setShowRecruiterLogin(true)}
+              onClick={() => setShowRecruiterLogin(true)}
             >
               <span className="hidden sm:inline">Recruiter Login</span>
               <span className="sm:hidden">Recruiter</span>
@@ -100,7 +100,7 @@ const Navbar = () => {
               Admin
             </button>
             <button
-              onClick={(e) => openSignIn()}
+              onClick={() => openSignIn()}
               className="bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-7 lg:px-10 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-semibold transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap"
             >
               Login

@@ -16,6 +16,7 @@ import AdminManageJobs from "./pages/AdminManageJobs";
 import AdminManageUsers from "./pages/AdminManageUsers";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
+import BackToTop from "./components/BackToTop";
 import "quill/dist/quill.snow.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,10 +26,11 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <div>
+      <div className="overflow-x-hidden max-w-full">
         {showRecruiterLogin && <RecruiterLogin />}
         {showAdminLogin && <AdminLogin />}
         <ToastContainer />
+        <BackToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/job-details/:id" element={<JobDetails />} />

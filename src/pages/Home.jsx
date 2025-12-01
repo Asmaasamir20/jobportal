@@ -7,7 +7,7 @@ import SaveUserToDB from "../components/SaveUserToDB";
 
 const Home = () => {
   return (
-    <div className="pt-16 sm:pt-20">
+    <div className="pt-16 sm:pt-20 overflow-x-hidden max-w-full">
       <Navbar />
       <SaveUserToDB />
 

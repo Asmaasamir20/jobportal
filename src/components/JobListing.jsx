@@ -295,9 +295,9 @@ const JobListing = () => {
   }, [filteredJobs.length, CurrentPage]);
 
   return (
-    <div className="px-4 sm:px-5 flex flex-col lg:flex-row max-lg:space-y-6 sm:max-lg:space-y-8 py-6 sm:py-8 gap-4 lg:gap-5">
-      {/* Sidebar - Filters - Professional Responsive Design */}
-      <div className="w-full lg:w-56 xl:w-64 bg-white px-4 sm:px-5 lg:px-4 xl:px-5 rounded-xl shadow-md border border-gray-200 flex-shrink-0 py-6 sm:py-7 lg:py-6 xl:py-8">
+    <div className="px-4 sm:px-5 flex flex-col lg:flex-row max-lg:space-y-6 sm:max-lg:space-y-8 py-6 sm:py-8 gap-4 lg:gap-5 overflow-hidden max-w-full">
+      {/* Sidebar - Filters - Professional Responsive Design with Sticky */}
+      <div className="w-full lg:w-56 xl:w-64 bg-white px-4 sm:px-5 lg:px-4 xl:px-5 rounded-xl shadow-md border border-gray-200 flex-shrink-0 py-6 sm:py-7 lg:py-6 xl:py-8 lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
         {/* Active Filters Section - Professional Design */}
         {(isSearched && (searchFilter.title || searchFilter.location)) ||
         selectedCategories.length > 0 ||

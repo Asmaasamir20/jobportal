@@ -206,37 +206,63 @@ const Dashboard = () => {
                   )}
                 </div>
                 {isDropdownOpen && (
-                  <div className="absolute top-full right-0 z-20 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden animate-fade-in">
-                    <div className="p-3 border-b border-gray-200">
-                      <p className="text-base font-bold text-gray-900">
-                        {companyData.name}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {companyData.email}
-                      </p>
+                  <div className="absolute top-full right-0 z-20 mt-2 w-72 sm:w-80 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden animate-fade-in">
+                    {/* User Info Section */}
+                    <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-blue-50/30">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden border-2 border-gray-200 flex-shrink-0 shadow-sm">
+                          {companyData.image && !imageError ? (
+                            <img
+                              src={companyData.image}
+                              alt={companyData.name}
+                              className="w-full h-full object-cover"
+                              onError={() => setImageError(true)}
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                              <span className="text-white font-semibold text-base">
+                                {companyData.name?.charAt(0)?.toUpperCase() ||
+                                  "C"}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-base font-bold text-gray-900 break-words">
+                            {companyData.name || "Company"}
+                          </p>
+                          <p className="text-sm text-gray-500 break-words mt-1">
+                            {companyData.email || "No email"}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <ul className="list-none m-0">
+
+                    {/* Menu Items */}
+                    <ul className="list-none m-0 py-2">
                       <li
                         onClick={() => {
                           setIsDropdownOpen(false);
                           logout();
                         }}
-                        className="py-2.5 px-4 cursor-pointer hover:bg-red-50 text-red-600 text-base font-semibold transition-colors flex items-center gap-2"
+                        className="py-3.5 px-5 cursor-pointer hover:bg-red-50 text-red-600 text-base font-semibold transition-all duration-200 flex items-center gap-4 group"
                       >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                          />
-                        </svg>
-                        Logout
+                        <div className="w-10 h-10 rounded-lg bg-red-50 group-hover:bg-red-100 flex items-center justify-center transition-colors duration-200 flex-shrink-0">
+                          <svg
+                            className="w-5 h-5 text-red-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2.5}
+                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                            />
+                          </svg>
+                        </div>
+                        <span>Logout</span>
                       </li>
                     </ul>
                   </div>
