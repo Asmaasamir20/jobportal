@@ -96,7 +96,7 @@ const TrustedBy = () => {
               delay: 2, // Further reduced delay for faster, smoother movement
               disableOnInteraction: false,
               pauseOnMouseEnter: false,
-              reverseDirection: true, // Reversed direction for consistent left-to-right visual flow
+              reverseDirection: true, // Force consistent right-to-left motion on every reload
             }}
             // Disable loop mode since we're using manual duplication for infinite scroll
             // This prevents Swiper loop warnings while maintaining seamless scrolling
