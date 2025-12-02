@@ -27,3 +27,4 @@ const ProtectedRoute = ({ children, requiredToken = "company" }) => {
 
 export default ProtectedRoute;
 
+
