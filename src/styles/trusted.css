@@ -1,0 +1,5 @@
+/* TrustedBy Slider - Continuous smooth marquee animation */
+/* Linear timing function ensures constant speed without stuttering */
+.trusted-slider .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
